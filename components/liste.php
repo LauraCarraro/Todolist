@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="form-group mt-2">
-        <button class="btn btn-dark">Ajouter</button>
+        <button id="btnAjouter" class="btn btn-dark">Ajouter</button>
     </div>
 </form>
 
@@ -31,27 +31,8 @@
                 <button type="button" class=" btn btn-outline-dark" data-filter="todo">A faire</button>
                 <button type="button" class=" btn btn-outline-dark" data-filter="done">Faites</button>
             </div>
-            <ul class="list-group">
-            <li class="todo list-group-item d-flex align-items-center">
-                <input class="form-check-input" type="checkbox" id="todo-1">
-                <label class="ms-2 form-check-label" for="todo-1">
-                    Tâche à faire 2
-                </label>
-                <label class="ms-auto btn btn-danger btn-sm">
-                <i class="bi-trash">
-                </i>
-                </label>
-            </li>
-            <li class="todo list-group-item d-flex align-items-center">
-                <input class="form-check-input" type="checkbox" id="todo-2">
-                <label class="ms-2 form-check-label" for="todo-2">
-                    Tâche à faire 1
-                </label>
-                <label class="ms-auto btn btn-danger btn-sm">
-                <i class="bi-trash">
-                </i>
-                </label>
-            </li>
-            </ul>
+            <ul class="list-group" id="listeTaches">
+    <!-- Les tâches seront ajoutées ici dynamiquement via JavaScript -->
+</ul>
         </main>
     </section>
