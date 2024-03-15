@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ToDoList</a>
     <div class="d-flex justify-content-between">
-      <button type="button" class="btn btn-secondary me-2">Inscription</button>
-      <button type="button" class="btn btn-secondary">Connexion</button>
+      <button id="btnInscription" type="button" class="btn btn-secondary me-2">Inscription</button>
+      <button id="btnConnexion" type="button" class="btn btn-secondary">Connexion</button>
     </div>
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
