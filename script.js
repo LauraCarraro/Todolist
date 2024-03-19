@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Créer le contenu de la nouvelle tâche avec la date d'échéance et la priorité
         newTask.innerHTML = `
+        <div class="tacheAFaire">
             <input class="form-check-input" type="checkbox">
             <label class="ms-2 form-check-label">
                 <strong>${nomTache}</strong>
@@ -23,35 +24,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 <span class="ms-2">Priorité: ${priorite}</span>
                 <span class="ms-2">Catégorie: ${categorie}</span>
             </label>
-            <label class="ms-auto btn btn-danger btn-sm delete-task">
+            <button class="btn btn-danger btn-sm supprimerTache">
                 <i class="bi-trash"></i>
-            </label>
-        `;
+            </button>
+        </div>
+    `;
 
-        // Ajouter la nouvelle tâche à la liste
-        let taskList = document.getElementById("listeTaches");
-        taskList.appendChild(newTask);
+// Ajouter la nouvelle tâche à la liste
+    let taskList = document.getElementById("listeTaches");
+    taskList.appendChild(newTask);
 
-        // Effacer les champs du formulaire
-        document.getElementById("nomTache").value = "";
-        document.getElementById("descriptionTache").value = "";
-        document.getElementById("dateTache").value = "";
-        document.getElementById("priorite").value = "basse"; 
-        document.getElementById("categorie").value = "personnel";
+// Sélectionnez tous les boutons de suppression de tâche
+const boutonsSupprimer = document.querySelectorAll('.supprimerTache');
+// Pour chaque bouton, ajoutez un écouteur d'événements au clic
+boutonsSupprimer.forEach(bouton => {
+    bouton.addEventListener('click', () => {
+// Supprimez l'élément parent du bouton (c'est-à-dire la tâche)
+        const tacheASupprimer = bouton.parentElement;
+        tacheASupprimer.remove();
     });
+});
 
-    // Supprimer la tâche en cliquant sur l'icône "corbeille"
-    document.getElementById("listeTaches").addEventListener("click", function (event) {
-        if (event.target.classList.contains("delete-task")) {
-            let taskToRemove = event.target.parentElement;
-            while (taskToRemove && !taskToRemove.classList.contains("todo")) {
-                taskToRemove = taskToRemove.parentElement;
-            }
-            if (taskToRemove) {
-                taskToRemove.remove();
-            }
-        }
-    });
+
+// Effacer les champs du formulaire
+    document.getElementById("nomTache").value = "";
+    document.getElementById("descriptionTache").value = "";
+    document.getElementById("dateTache").value = "";
+    document.getElementById("priorite").value = "basse"; 
+    document.getElementById("categorie").value = "personnel";
+});
+
 
     // Ouvrir la modale de connexion
     document.getElementById('btnConnexion').addEventListener('click', function() {
@@ -87,6 +89,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
 
   
