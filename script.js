@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnAjouter").addEventListener("click", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         // Récupérer les valeurs du formulaire
         let nomTache = document.getElementById("nomTache").value;
@@ -30,64 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     `;
 
-// Ajouter la nouvelle tâche à la liste
-    let taskList = document.getElementById("listeTaches");
-    taskList.appendChild(newTask);
+        // Ajouter la nouvelle tâche à la liste
+        let taskList = document.getElementById("listeTaches");
+        taskList.appendChild(newTask);
 
-// Sélectionnez tous les boutons de suppression de tâche
-const boutonsSupprimer = document.querySelectorAll('.supprimerTache');
-// Pour chaque bouton, ajoutez un écouteur d'événements au clic
-boutonsSupprimer.forEach(bouton => {
-    bouton.addEventListener('click', () => {
-// Supprimez l'élément parent du bouton (c'est-à-dire la tâche)
-        const tacheASupprimer = bouton.parentElement;
-        tacheASupprimer.remove();
+        // Sélectionnez tous les boutons de suppression de tâche
+        const boutonsSupprimer = document.querySelectorAll('.supprimerTache');
+        // Pour chaque bouton, ajoutez un écouteur d'événements au clic
+        boutonsSupprimer.forEach(bouton => {
+            bouton.addEventListener('click', () => {
+                // Supprimez l'élément parent du bouton (c'est-à-dire la tâche)
+                const tacheASupprimer = bouton.parentElement;
+                tacheASupprimer.remove();
+            });
+        });
+
+
+        // Effacer les champs du formulaire
+        document.getElementById("nomTache").value = "";
+        document.getElementById("descriptionTache").value = "";
+        document.getElementById("dateTache").value = "";
+        document.getElementById("priorite").value = "basse";
+        document.getElementById("categorie").value = "personnel";
     });
 });
 
-
-// Effacer les champs du formulaire
-    document.getElementById("nomTache").value = "";
-    document.getElementById("descriptionTache").value = "";
-    document.getElementById("dateTache").value = "";
-    document.getElementById("priorite").value = "basse"; 
-    document.getElementById("categorie").value = "personnel";
-});
-
-
-    // Ouvrir la modale de connexion
-    document.getElementById('btnConnexion').addEventListener('click', function() {
-        document.getElementById('modalConnexion').style.display = "block";
-    });
-
-    // Ouvrir la modale d'inscription
-    document.getElementById('btnInscription').addEventListener('click', function() {
-        document.getElementById('modalInscription').style.display = "block";
-    });
-
-    // Fermer la modale de connexion lorsqu'on clique sur le bouton croix
-    document.querySelector('#modalConnexion .close').addEventListener('click', function() {
-        document.getElementById('modalConnexion').style.display = "none";
-    });
-
-    // Fermer la modale d'inscription lorsqu'on clique sur le bouton croix
-    document.querySelector('#modalInscription .close').addEventListener('click', function() {
-        document.getElementById('modalInscription').style.display = "none";
-    });
-
-    // Fermer la modale de connexion lorsqu'on clique en dehors de celle-ci
-    window.addEventListener('click', function(event) {
-        if (event.target == document.getElementById('modalConnexion')) {
-            document.getElementById('modalConnexion').style.display = "none";
-        }
-    });
-
-    // Fermer la modale d'inscription lorsqu'on clique en dehors de celle-ci
-    window.addEventListener('click', function(event) {
-        if (event.target == document.getElementById('modalInscription')) {
-            document.getElementById('modalInscription').style.display = "none";
-        }
-    });
-});
-
-  

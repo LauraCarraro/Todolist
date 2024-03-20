@@ -1,11 +1,16 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">ToDoList</a>
+    <a class="navbar-brand" href="/">ToDoList</a>
     <div class="d-flex justify-content-between">
-      <button id="btnInscription" type="button" class="btn btn-secondary me-2">Inscription</button>
-      <button id="btnConnexion" type="button" class="btn btn-secondary">Connexion</button>
+      <a href="inscription.php">
+        <button type="button" class="btn btn-secondary me-2">Inscription</button>
+      </a>
+      <a href="connexion.php">
+        <button type="button" class="btn btn-secondary">Connexion</button>
+      </a>
     </div>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+      aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>

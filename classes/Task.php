@@ -1,6 +1,7 @@
 <?php
 
-class Task {
+class Task
+{
     private $id;
     private $title;
     private $description;
@@ -72,5 +73,4 @@ class Task {
     {
         $this->category = $category;
     }
-
 }
