@@ -2,12 +2,15 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="/">ToDoList</a>
     <div class="d-flex justify-content-between">
-      <a href="inscription.php">
-        <button type="button" class="btn btn-secondary me-2">Inscription</button>
-      </a>
-      <a href="connexion.php">
-        <button type="button" class="btn btn-secondary">Connexion</button>
-      </a>
+      <?php ?>
+      <?php if (isset ($isConnected) && $isConnected === false) { ?>
+        <a href="inscription.php">
+          <button type="button" class="btn btn-secondary me-2">Inscription</button>
+        </a>
+        <a href="connexion.php">
+          <button type="button" class="btn btn-secondary">Connexion</button>
+        </a>
+      <?php } ?>
     </div>
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
       aria-labelledby="offcanvasDarkNavbarLabel">

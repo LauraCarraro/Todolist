@@ -1,10 +1,46 @@
 <?php
+require __DIR__ . '/config.php';
 session_start();
 $isConnected = isset ($_SESSION["email"]);
 
+if ($isConnected) {
+  // Connexion à la base de données avec PDO
+  $dsn = 'mysql:host=' . DATABASE_HOST . ";dbname=" . DATABASE_NAME;
+  $conn = new PDO($dsn, DATABASE_USER, DATABASE_PASSWORD);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  $priorites = $conn->query("SELECT * FROM Tdl_Priority")->fetchAll(PDO::FETCH_ASSOC);
+  $categories = $conn->query("SELECT * FROM Tdl_Category")->fetchAll(PDO::FETCH_ASSOC);
+
+  $stmt = $conn->prepare("SELECT Titre as nom, Description as description, Echéance as date, p.Nom as priorite FROM Tdl_Task t JOIN Tdl_Priority p on t.PriorityID=p.PriorityID WHERE UserID = :userID");
+  $stmt->bindParam(':userID', $_SESSION["userID"]);
+  $stmt->execute();
+  $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  if (!empty ($_POST)) {
+    // Récupération des données postées
+    $nomTache = !empty ($_POST['nomTache']) ? $_POST['nomTache'] : '';
+    $descriptionTache = !empty ($_POST['descriptionTache']) ? $_POST['descriptionTache'] : '';
+    $dateTache = !empty ($_POST['dateTache']) ? $_POST['dateTache'] : '';
+    $prioriteTache = !empty ($_POST['prioriteTache']) ? $_POST['prioriteTache'] : '';
+
+    // Insertion de la nouvelle tâche
+    $statement = $conn->prepare("INSERT INTO Tdl_Task(Titre, Description, Echéance, PriorityID, UserID) VALUES (:nomTache, :descriptionTache, :dateTache, :priorite, :userID)");
+    $statement->execute(
+      array(
+        ':nomTache' => $nomTache,
+        ':descriptionTache' => $descriptionTache,
+        ':dateTache' => $dateTache,
+        ':priorite' => (int) $prioriteTache,
+        ':userID' => $_SESSION["userID"]
+      )
+    );
+    echo "Tâche ajoutée avec succès.";
+  }
+}
 ?>
 
-
+<!-- A BOUGER DANS UNE VUE DEDIEE -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -27,51 +63,81 @@ $isConnected = isset ($_SESSION["email"]);
     <!--Création et affichage des tâches-->
     <section class="container pt-5" id="todolist">
       <br>
-      <form id="creationTache" class="pb-4">
+      <form id="creationTache" action="#" method="POST" class="pb-4">
         <div class="form-group">
           <label for="nomTache">Nouvelle tâche</label>
-          <input required="" class="form-control" type="text" id="nomTache" placeholder="Nom de la tâche" name="title"
-            style="width: 100%">
+          <input required="" class="form-control" type="text" id="nomTache" placeholder="Nom de la tâche" name="nomTache"
+            style="width: 100%" value="<?= isset ($nomTache) ? $nomTache : '' ?>">
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <input class="form-control" type="text" id="descriptionTache" placeholder="Décrire la tâche" name="description"
-            style="width: 100%">
+          <input class="form-control" type="text" id="descriptionTache" placeholder="Décrire la tâche"
+            name="descriptionTache" style="width: 100%" value="<?= isset ($descriptionTache) ? $descriptionTache : '' ?>">
         </div>
         <div class="form-group d-flex">
           <div class="mr-2" style="flex: 1;">
             <label for="dateTache">Date</label>
-            <input required="" type="date" id="dateTache" class="form-control" style="width: 60%;">
+            <input required="" type="date" id="dateTache" name="dateTache" class="form-control" style="width: 60%;"
+              value="<?= isset ($dateTache) ? $dateTache : '' ?>">
           </div>
           <div style="flex: 1;">
             <label for="priorite">Priorité</label>
-            <select id="priorite" name="priorite" class="form-control" style="width: 60%;">
-              <option value="basse">Basse</option>
-              <option value="moyenne">Moyenne</option>
-              <option value="haute">Haute</option>
-              <option value="ultime">Ultime</option>
+            <select name="prioriteTache">
+              <?php foreach ($priorites as $priorite) { ?>
+                <option value="<?= $priorite['PriorityID'] ?>" <?= isset ($prioriteTache) && $priorite['PriorityID'] === $prioriteTache ? 'selected' : '' ?>>
+                  <?= $priorite['Nom'] ?>
+                </option>
+              <?php } ?>
             </select>
           </div>
           <div style="flex: 1;">
             <label for="categorie">Catégorie</label>
-            <select id="categorie" name="categorie" class="form-control" style="width: 60%;">
-              <option value="personnel">Personnel</option>
-              <option value="travail">Travail</option>
-              <option value="famille">Famille</option>
-              <option value="amis">Amis</option>
-              <option value="autre">Autre</option>
-            </select>
+
+            <?php foreach ($categories as $categorie) { ?>
+              <input type="checkbox" name="categories[<?= $categorie['CategoryID'] ?>]" <?= isset ($categoriesTache) && in_array($categorie['CategoryID'], $categoriesTache) ? 'checked' : '' ?> />
+              <label>
+                <?= $categorie['Nom'] ?>
+              </label>
+
+            <?php } ?>
           </div>
         </div>
         <div class="form-group mt-2">
-          <button id="btnAjouter" class="btn btn-dark">Ajouter</button>
+          <button type="submit" id="btnAjouter" class="btn btn-dark">Ajouter</button>
         </div>
       </form>
 
       <div id="affichageTaches">
-        <ul class="list-group" id="listeTaches">
-          <!-- Les tâches seront ajoutées ici dynamiquement via JavaScript -->
-        </ul>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date</th>
+              <th scope="col">Priorité</th>
+              <th scope="col">Catégorie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($taches as $tache) { ?>
+              <tr>
+                <th scope="row">
+                  <?= $tache["nom"] ?>
+                </th>
+                <td>
+                  <?= $tache["description"] ?>
+                </td>
+                <td>
+                  <?= $tache["date"] ?>
+                </td>
+                <td>
+                  <?= $tache["priorite"] ?>
+                </td>
+                <td>A COMPLETER</td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
       </div>
     <?php } else { ?>
       <section class="container pt-5">
