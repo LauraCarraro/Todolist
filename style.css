@@ -1,5 +1,5 @@
 .modal {
-    display: none; /* Masquer les modales par défaut */
+    display: none; 
     position: fixed;
     z-index: 9999;
     left: 0;
@@ -15,8 +15,8 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Largeur de la modale */
-    max-width: 500px; /* Largeur maximale de la modale */
+    width: 80%; 
+    max-width: 500px; 
     border-radius: 10px;
   }
   

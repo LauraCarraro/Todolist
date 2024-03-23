@@ -4,7 +4,6 @@ session_start();
 $isConnected = isset ($_SESSION["email"]);
 
 if ($isConnected) {
-  // Connexion à la base de données avec PDO
   $dsn = 'mysql:host=' . DATABASE_HOST . ";dbname=" . DATABASE_NAME;
   $conn = new PDO($dsn, DATABASE_USER, DATABASE_PASSWORD);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,7 +39,6 @@ if ($isConnected) {
 }
 ?>
 
-<!-- A BOUGER DANS UNE VUE DEDIEE -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -60,7 +58,7 @@ if ($isConnected) {
 
 <body>
   <?php if ($isConnected) { ?>
-    <!--Création et affichage des tâches-->
+   
     <section class="container pt-5" id="todolist">
       <br>
       <form id="creationTache" action="#" method="POST" class="pb-4">
@@ -92,14 +90,13 @@ if ($isConnected) {
           </div>
           <div style="flex: 1;">
             <label for="categorie">Catégorie</label>
-
-            <?php foreach ($categories as $categorie) { ?>
-              <input type="checkbox" name="categories[<?= $categorie['CategoryID'] ?>]" <?= isset ($categoriesTache) && in_array($categorie['CategoryID'], $categoriesTache) ? 'checked' : '' ?> />
-              <label>
-                <?= $categorie['Nom'] ?>
-              </label>
-
-            <?php } ?>
+            <select name="categorieTache">
+              <?php foreach ($categories as $categorie) { ?>
+                <option value="<?= $categorie['CategoryID'] ?>" <?= isset ($categorieTache) && $categorie['CategoryID'] === $categorieTache ? 'selected' : '' ?>>
+                  <?= $categorie['Nom'] ?>
+                </option>
+              <?php } ?>
+            </select>
           </div>
         </div>
         <div class="form-group mt-2">
@@ -133,7 +130,8 @@ if ($isConnected) {
                 <td>
                   <?= $tache["priorite"] ?>
                 </td>
-                <td>A COMPLETER</td>
+                <td>
+                  </td>
               </tr>
             <?php } ?>
           </tbody>
@@ -141,7 +139,7 @@ if ($isConnected) {
       </div>
     <?php } else { ?>
       <section class="container pt-5">
-        Connectez vous pour afficher les taches
+        Inscrivez-vous pour afficher les tâches
       </section>
     <?php } ?>
 

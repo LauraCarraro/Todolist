@@ -5,15 +5,15 @@ class User
     private $nom;
     private $prenom;
     private $email;
-    private $password;
+    private $motdepasse;
 
-    public function __construct($id, $nom, $prenom, $email, $password)
+    public function __construct($id, $nom, $prenom, $email, $motdepasse)
     {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->password = $password;
+        $this->motdepasse = $motdepasse;
     }
 
     public function getId()
@@ -51,14 +51,14 @@ class User
         $this->email = $email;
     }
 
-    public function getPassword()
+    public function getMotdepasse()
     {
-        return $this->password;
+        return $this->motdepasse;
     }
 
-    public function setPassword($password)
+    public function setMotdepasse($motdepasse)
     {
-        $this->password = $password;
+        $this->motdepasse = $motdepasse;
     }
 
     public function toAssociativeArray()
@@ -68,7 +68,7 @@ class User
             "nom" => $this->nom,
             "prenom" => $this->prenom,
             "email" => $this->email,
-            "password" => $this->password,
+            "motdepasse" => $this->motdepasse,
         ];
     }
 }

@@ -3,20 +3,20 @@
 class Task
 {
     private $id;
-    private $title;
-    private $description;
-    private $deadline;
-    private $priority;
-    private $category;
+    private $nomTache;
+    private $descriptionTache;
+    private $dateTache;
+    private $priorite;
+    private $categorie;
 
-    public function __construct($id, $title, $description, $deadline, $priority, $category)
+    public function __construct($id, $nomTache, $descriptionTache, $dateTache, $priorite, $categorie)
     {
         $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->deadline = $deadline;
-        $this->priority = $priority;
-        $this->category = $category;
+        $this->nomTache = $nomTache;
+        $this->descriptionTache = $descriptionTache;
+        $this->dateTache = $dateTache;
+        $this->priorite = $priorite;
+        $this->categorie = $categorie;
     }
 
     public function getId()
@@ -24,53 +24,53 @@ class Task
         return $this->id;
     }
 
-    public function getTitle()
+    public function getnomTache()
     {
-        return $this->title;
+        return $this->nomTache;
     }
 
-    public function setTitle($title)
+    public function setnomTache($nomTache)
     {
-        $this->title = $title;
+        $this->nomTache = $nomTache;
     }
 
-    public function getDescription()
+    public function getdescriptionTache()
     {
-        return $this->description;
+        return $this->descriptionTache;
     }
 
-    public function setDescription($description)
+    public function setdescriptionTache($descriptionTache)
     {
-        $this->description = $description;
+        $this->descriptionTache = $descriptionTache;
     }
 
-    public function getDeadline()
+    public function getdateTache()
     {
-        return $this->deadline;
+        return $this->dateTache;
     }
 
-    public function setDeadline($deadline)
+    public function setdateTache($dateTache)
     {
-        $this->deadline = $deadline;
+        $this->dateTache = $dateTache;
     }
 
-    public function getPriority()
+    public function getpriorite()
     {
-        return $this->priority;
+        return $this->priorite;
     }
 
-    public function setPriority($priority)
+    public function setpriorite($priorite)
     {
-        $this->priority = $priority;
+        $this->priorite = $priorite;
     }
 
-    public function getCategory()
+    public function getcategorie()
     {
-        return $this->category;
+        return $this->categorie;
     }
 
-    public function setCategory($category)
+    public function setcategorie($categorie)
     {
-        $this->category = $category;
+        $this->categorie = $categorie;
     }
 }

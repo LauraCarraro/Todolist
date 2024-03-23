@@ -66,7 +66,7 @@ if (!empty ($_POST)) {
         } catch (PDOException $e) {
             var_dump($e->getMessage());
             die();
-            echo "Erreur d'insertion dans la base de données : " . $e->getMessage();
+            // echo "Erreur d'insertion dans la base de données : " . $e->getMessage();
         }
     }
 }
