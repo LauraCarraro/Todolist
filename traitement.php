@@ -24,7 +24,7 @@ if (!empty ($_POST)) {
         $conn = new PDO($dsn, DATABASE_USER, DATABASE_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Préparez la requête SQL pour récupérer l'utilisateur en fonction de son e-mail
+        
         $stmt = $conn->prepare("SELECT * FROM tdl_user WHERE E_mail = :email LIMIT 1");
         $stmt->bindParam(':email', $email);
         $stmt->execute();

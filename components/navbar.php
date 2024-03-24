@@ -11,6 +11,11 @@
           <button type="button" class="btn btn-secondary">Connexion</button>
         </a>
       <?php } ?>
+      <?php if (isset ($isConnected) && $isConnected === true) { ?>
+        <a href="deconnexion.php">
+          <button type="button" class="btn btn-secondary me-2">Déconnexion</button>
+        </a>
+        <?php } ?>
     </div>
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
       aria-labelledby="offcanvasDarkNavbarLabel">

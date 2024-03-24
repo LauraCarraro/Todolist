@@ -17,11 +17,13 @@ if ($isConnected) {
   $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   if (!empty ($_POST)) {
+    
     // Récupération des données postées
     $nomTache = !empty ($_POST['nomTache']) ? $_POST['nomTache'] : '';
     $descriptionTache = !empty ($_POST['descriptionTache']) ? $_POST['descriptionTache'] : '';
     $dateTache = !empty ($_POST['dateTache']) ? $_POST['dateTache'] : '';
     $prioriteTache = !empty ($_POST['prioriteTache']) ? $_POST['prioriteTache'] : '';
+    // $categorieTache = !empty ($_POST['categorieTache']) ? $_POST['categorieTache'] : '';
 
     // Insertion de la nouvelle tâche
     $statement = $conn->prepare("INSERT INTO Tdl_Task(Titre, Description, Echéance, PriorityID, UserID) VALUES (:nomTache, :descriptionTache, :dateTache, :priorite, :userID)");
@@ -31,6 +33,7 @@ if ($isConnected) {
         ':descriptionTache' => $descriptionTache,
         ':dateTache' => $dateTache,
         ':priorite' => (int) $prioriteTache,
+        // ':categorie'=> (int) $categorieTache,
         ':userID' => $_SESSION["userID"]
       )
     );
